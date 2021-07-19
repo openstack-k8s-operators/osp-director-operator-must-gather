@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Resource list
+resources=()
+
+# Openstack namespace
+resources+=(ns/openstack)
+
+# Install-related namespaces
+resources+=(ns/openshift-operator-lifecycle-manager ns/openshift-marketplace)
+
+# CNV namespace
+resources+=(ns/openshift-cnv)
+
+# SRIOV namespace
+resources+=(ns/sriov-network-operator)
+
+# Install-related resources
+resources+=(catalogsource clusterserviceversion)
+
+# CNV-related resources
+resources+=(virtualmachines virtualmachineinstances datavolumes)
+
+# Metal3-related resources
+resources+=(baremetalhosts provisionings)
+
+# Networking resources
+resources+=(nodenetworkstates nodenetworkconfigurationenactments network-attachment-definitions nodenetworkconfigurationpolicies)
+
+# SRIOV resources
+resources+=(sriovnetworks sriovnetworknodestates sriovnetworknodepolicies)
+
+# Run the collection of resources using must-gather
+for resource in "${resources[@]}"; do
+    echo "Inspecting resource ${resource}..."
+    /usr/bin/oc adm inspect --dest-dir must-gather --all-namespaces "${resource}" &> /dev/null
+done
+
+# Operator subscription
+/usr/bin/gather_sub
+
+# CRDs
+/usr/bin/gather_crds
+
+# Openstack CRs
+/usr/bin/gather_crs
+
+# Operator pod and logs, as well as operator-generated native k8s resources and any associated logs (if applicable)
+/usr/bin/gather_ospd
+
+# TripleO-specific config not captured by previous gathers
+# TODO?
+
+# API services
+/usr/bin/gather_apiservices
+
+# Webhooks
+/usr/bin/gather_webhooks
+
+exit 0

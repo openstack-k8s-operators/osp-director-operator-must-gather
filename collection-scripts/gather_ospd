@@ -1,0 +1,45 @@
+#!/bin/bash
+
+BASE_COLLECTION_PATH="/must-gather"
+
+# Openstack namespace
+
+NS=openstack
+ns_collection_path=$BASE_COLLECTION_PATH/namespaces/$NS/
+mkdir -p "$ns_collection_path"
+
+for pod in $(oc get pods -n "$NS" --no-headers -o=custom-columns=NAME:.metadata.name 2>/dev/null)
+do
+        pod_collection_path=$ns_collection_path/$pod
+        mkdir -p "$pod_collection_path"
+        /usr/bin/oc adm inspect --dest-dir must-gather -n "$NS" "pod/$pod"
+done
+
+for configmap in $(oc get configmaps -n "$NS" --no-headers -o=custom-columns=NAME:.metadata.name 2>/dev/null)
+do
+        configmap_collection_path=$ns_collection_path/$configmap
+        mkdir -p "$configmap_collection_path"
+        /usr/bin/oc adm inspect --dest-dir must-gather -n "$NS" "configmap/$configmap"
+done
+
+for secret in $(oc get secrets -n "$NS" --no-headers -l osp-director.openstack.org/must-gather-secret=yes -o=custom-columns=NAME:.metadata.name 2>/dev/null)
+do
+        secret_collection_path=$ns_collection_path/$secret
+        mkdir -p "$secret_collection_path"
+        /usr/bin/oc adm inspect --dest-dir must-gather -n "$NS" "secret/$secret"
+done
+
+# Metal3 namespace
+
+NS=openshift-machine-api
+ns_collection_path=$BASE_COLLECTION_PATH/namespaces/$NS/
+mkdir -p "$ns_collection_path"
+
+for secret in $(oc get secrets -n "$NS" --no-headers -l osp-director.openstack.org/must-gather-secret=yes -o=custom-columns=NAME:.metadata.name 2>/dev/null)
+do
+        secret_collection_path=$ns_collection_path/$secret
+        mkdir -p "$secret_collection_path"
+        /usr/bin/oc adm inspect --dest-dir must-gather -n "$NS" "secret/$secret"
+done
+
+exit 0
