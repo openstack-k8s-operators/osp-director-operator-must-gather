@@ -1,9 +1,8 @@
+FROM quay.io/openshift/origin-must-gather:4.9.0 as builder
 
-FROM quay.io/openshift/origin-must-gather:4.3.0 as builder
+FROM quay.io/centos/centos:8
 
-FROM centos:7
-
-RUN yum update -y && yum install rsync -y && yum clean all
+RUN dnf update -y && dnf install rsync -y && dnf clean all
 
 COPY --from=builder /usr/bin/oc /usr/bin/oc
 
