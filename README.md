@@ -48,15 +48,21 @@ must-gather.local.7079684121838056125/
     │       │   ├── configmaps
     │       │   ├── pods
     │       │   └── secrets
-    │       ├── crs
-    │       │   ├── openstackbaremetalsets.osp-director.openstack.org
-    │       │   ├── openstackclients.osp-director.openstack.org
-    │       │   ├── openstackcontrolplanes.osp-director.openstack.org
-    │       │   ├── openstackipsets.osp-director.openstack.org
-    │       │   ├── openstacknets.osp-director.openstack.org
-    │       │   ├── openstackplaybookgenerators.osp-director.openstack.org
-    │       │   ├── openstackprovisionservers.osp-director.openstack.org
-    │       │   └── openstackvmsets.osp-director.openstack.org
+│   │       ├── crs
+│   │       │   ├── openstackbackuprequests.osp-director.openstack.org
+│   │       │   ├── openstackbackups.osp-director.openstack.org
+│   │       │   ├── openstackbaremetalsets.osp-director.openstack.org
+│   │       │   ├── openstackclients.osp-director.openstack.org
+│   │       │   ├── openstackconfiggenerators.osp-director.openstack.org
+│   │       │   ├── openstackcontrolplanes.osp-director.openstack.org
+│   │       │   ├── openstackephemeralheats.osp-director.openstack.org
+│   │       │   ├── openstackipsets.osp-director.openstack.org
+│   │       │   ├── openstackmacaddresses.osp-director.openstack.org
+│   │       │   ├── openstacknetattachments.osp-director.openstack.org
+│   │       │   ├── openstacknetconfigs.osp-director.openstack.org
+│   │       │   ├── openstacknets.osp-director.openstack.org
+│   │       │   ├── openstackprovisionservers.osp-director.openstack.org
+│   │       │   └── openstackvmsets.osp-director.openstack.org
     │       ├── hco.kubevirt.io
     │       ├── heat-env-config
     │       ├── image.openshift.io
