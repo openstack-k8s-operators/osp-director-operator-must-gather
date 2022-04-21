@@ -1,6 +1,6 @@
 FROM quay.io/openshift/origin-must-gather:4.9.0 as builder
 
-FROM quay.io/centos/centos:8
+FROM quay.io/centos/centos:stream8
 
 RUN dnf update -y && dnf install rsync -y && dnf clean all
 
