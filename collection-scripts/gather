@@ -36,6 +36,9 @@ resources+=(nodenetworkstates nodenetworkconfigurationenactments network-attachm
 # SRIOV resources
 resources+=(sriovnetworks sriovnetworknodestates sriovnetworknodepolicies)
 
+# Storage resource
+resources+=(storageclasses persistentvolumeclaims persistentvolumes)
+
 # Run the collection of resources using must-gather
 for resource in "${resources[@]}"; do
     echo "Inspecting resource ${resource}..."
